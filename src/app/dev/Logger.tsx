@@ -40,7 +40,7 @@ export function Logger() {
   useEffect(() => {
 
 
-    log && log(LogType.NORMAL, 'welcome', 'Temperature-humidity manager initialized!')
+    if (log) log(LogType.NORMAL, 'welcome', 'Temperature-humidity manager initialized!')
   }, [])
 
   const icon = (type: LogType) => {

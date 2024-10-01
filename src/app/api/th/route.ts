@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 export async function GET(req: NextRequest) {
 
     try {
-        let optionKeys = req.nextUrl.searchParams;
+        const optionKeys = req.nextUrl.searchParams;
         const queryParams:{ [index: string]: string | string[]} = {};
 
         // Loop through all search parameters and store them in an object
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
         if ((typeof queryParams['deviceIds']) === 'string') {
 
             queryParams['deviceIds'] = queryParams['deviceIds'] as string;
-            let idArr = queryParams['deviceIds'].split(' ');
+            const idArr = queryParams['deviceIds'].split(' ');
             queryParams.deviceIds = idArr;
 
             

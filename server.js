@@ -45,3 +45,8 @@ var tcpServer = net.createServer((socket) => {
 tcpServer.listen(5000, () => {
     console.log("Tcp server listening on port 5000")
 });
+
+tcpServer.on('error', (err) => {
+
+    console.error(`Socket error: ${err.message}`)
+})
