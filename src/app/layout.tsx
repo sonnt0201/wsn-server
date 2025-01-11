@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { CustomNavBar } from "./CustomNavBar";
+import { Flowbite } from "flowbite-react";
+import { customTheme } from "./constants";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Flowbite theme={{theme: customTheme}}>
+            <CustomNavBar />
+
         {children}
+        </Flowbite>
+      
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
 "use client"
 
-import { Device, Devices, ID } from "@/orm/database"
+import { Device, Devices, ID } from "@/orm/sqlite"
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
-import { Record } from "@/orm/database"
+import { Record } from "@/orm/sqlite"
 import { Card } from "flowbite-react"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
@@ -39,8 +39,8 @@ const StateCard = ({
 
     const intervalRef = useRef<any>(null)
     useEffect(() => {
-        
-       
+
+
 
         intervalRef.current = setInterval(() => {
             fetchNewestRecord()
@@ -50,15 +50,17 @@ const StateCard = ({
     }, [])
 
     const [state, setState] = useState<Record>();
-
+    const [now, setNow] = useState<number>(Date.now())
 
     const fetchNewestRecord = async () => {
         const res = await axios.get(`/api/th?deviceIds=${device.device_id}&limit=1&type=newest`)
         const data = res.data[0] as Record
         console.log(data)
         setState(data)
-
+        setNow(Date.now())
     }
+
+
 
     return (
         <Card className="mx-2">
@@ -73,9 +75,21 @@ const StateCard = ({
             </h1>
 
             <div>Temparature: <span className="text-green-600">{state?.temparature}</span> </div>
+
             <div>Humidity: <span className="text-green-600">{state?.humidity} </span> </div>
-            <div> {dayjs(state?.time).format("DD/MM/YYYY hh:mm:ss A")}</div>
-            <div>Last updated: {dayjs(state?.time).fromNow()}</div>
+
+            {
+
+                state &&
+
+                <>
+                    <div> {dayjs(state?.time).format("DD/MM/YYYY hh:mm:ss A")}</div>
+                    <div>Last updated: {dayjs(state?.time).fromNow()}</div>
+                    {(now - state?.time <= 25000) && <div className="text-green-600">Online</div>}
+                    {(now - state?.time > 25000) && <div className="text-red-600">Offline</div>}
+
+                </>
+            }
 
 
         </Card>

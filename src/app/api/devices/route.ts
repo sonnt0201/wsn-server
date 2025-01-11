@@ -1,4 +1,4 @@
-import { Device, ORM } from "@/orm/database";
+import { Device, ORM } from "@/orm/sqlite";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {

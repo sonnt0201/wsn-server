@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { LogType, useLog } from "./Logger"
-import { Device, Devices } from "@/orm/database";
+import { Device, Devices } from "@/orm/sqlite";
 import axios from "axios";
-import { Button, Label, Modal, Table, TextInput } from "flowbite-react";
+import { Button, Flowbite, Label, Modal, Table, TextInput } from "flowbite-react";
+import { CustomColor, customTheme } from "../constants";
 
 export const DevicesTable = ({
     onDevicesUpdated
@@ -15,7 +16,7 @@ export const DevicesTable = ({
     const [_, log] = useLog();
     const [devices, setDevices] = useState<Devices>([]);
 
-    const [addedDevice, setAddedDevice] = useState<Device>({ device_id: "", description: "" });
+    const [addedDevice, setAddedDevice] = useState<Device>({ device_id: "", description: "", latest_temparature: undefined, latest_humidity: undefined, latest_record_time: undefined });
     const [isAddingDevice, setIsAddingDevice] = useState<boolean>(false);
 
     useEffect(() => {
@@ -39,7 +40,7 @@ export const DevicesTable = ({
             if (res.status === 200) {
                 log(LogType.SUCCESS, "Device created successfully", addedDevice.description, addedDevice.device_id)
                 setDevices(prev => [...prev, addedDevice])
-           }
+            }
             setAddedDevice({ description: "", device_id: "" })
         } catch (err) {
 
@@ -73,7 +74,7 @@ export const DevicesTable = ({
                     </Table.Body>
                 </Table>
             </div>
-            {!isAddingDevice && <Button className="m-2" onClick={() => setIsAddingDevice(true)}>Add device</Button>}
+            {!isAddingDevice && <Button className="m-2 font-bold" color={"success"} onClick={() => setIsAddingDevice(true)}>ADD DEVICE</Button>}
             {/* {isAddingDevice && */}
             <Modal show={isAddingDevice} size="md" onClose={() => setIsAddingDevice(false)} popup>
                 <Modal.Header />
@@ -116,16 +117,19 @@ export const DevicesTable = ({
                     </div>
 
                     <div className="w-full">
-                        <Button onClick={() => {
-                            createNewDevice()
-                            setIsAddingDevice(false)
+                     
+                            <Button  color="warning" onClick={() => {
+                                createNewDevice()
+                                setIsAddingDevice(false)
                             }}>Submit !</Button>
+
+                       
                     </div>
                 </Modal.Body>
 
             </Modal>
             {/* } */}
-        </div>
+        </div >
 
     )
 }

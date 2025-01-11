@@ -1,4 +1,4 @@
-import { ORM } from "@/orm/database"
+import { ORM } from "@/orm/sqlite"
 import { NextRequest, NextResponse } from "next/server"
 import { isStringObject } from "util/types"
 
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
         if ((typeof queryParams['deviceIds']) === 'string') {
 
             queryParams['deviceIds'] = queryParams['deviceIds'] as string;
-            const idArr = queryParams['deviceIds'].split(' ');
+            const idArr = queryParams['deviceIds'].split('+');
             queryParams.deviceIds = idArr;
 
             
