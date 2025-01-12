@@ -7,7 +7,7 @@ import { CustomColor } from "./constants";
 
 export function CustomNavBar() {
     return (
-        <Card className="max-w-full h-16  mb-2 rounded-none">
+        <Card className="w-screen h-16  mb-2 rounded-none shadow-none fixed">
             <Navbar fluid  >
                 <Navbar.Brand as={Link} href="https://flowbite-react.com">
                     <img src="environment-icon.svg" className="mr-2  h-6 sm:h-9" alt="Flowbite React Logo" />
@@ -15,15 +15,15 @@ export function CustomNavBar() {
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse>
-                    <Navbar.Link href="#" active>
-                        Home
+                    <Navbar.Link href="/dev" active>
+                        Realtime
                     </Navbar.Link>
                     <Navbar.Link as={Link} href="#">
-                        About
+                        Devices
                     </Navbar.Link>
-                    <Navbar.Link href="#">Services</Navbar.Link>
-                    <Navbar.Link href="#">Pricing</Navbar.Link>
-                    <Navbar.Link href="#">Contact</Navbar.Link>
+                    <Navbar.Link href="/alarms">Alarms</Navbar.Link>
+                    <Navbar.Link href="/about">About</Navbar.Link>
+                   
                 </Navbar.Collapse>
             </Navbar>
         </Card>

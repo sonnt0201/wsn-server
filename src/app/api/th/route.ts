@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
         console.log(value)
 
         // const db = sqlite3.Database;
-        ORM.createRecords(value)
+        ORM.record.createRecords(value)
         const response = NextResponse.json({ message: "oke" })
 
         return response
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
         console.log("options: ", queryParams);
 
         // const out = ORM.readRecords(queryParams)
-        const res = NextResponse.json( (await ORM.readRecords(queryParams)));
+        const res = NextResponse.json( (await ORM.record.readRecords(queryParams)));
        
         return   res
     } catch (err) {

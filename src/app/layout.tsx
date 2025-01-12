@@ -31,13 +31,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Flowbite theme={{theme: customTheme}}>
+        <Flowbite theme={{ theme: customTheme }}>
+         
             <CustomNavBar />
 
-        {children}
-        </Flowbite>
-      
+          <div id="body wrapper" className="pt-20">
+            {children}
+
+          </div>
+        </ Flowbite>
+
+
+
       </body>
-    </html>
+    </html >
   );
 }

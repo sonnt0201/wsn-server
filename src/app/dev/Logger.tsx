@@ -73,7 +73,7 @@ export function Logger() {
           {
             (logMessages.length > 0) &&
             logMessages.map((message: ILogMessage, index: number) => <>
-              <Timeline.Item>
+              <Timeline.Item key={index}>
 
                 <Timeline.Point />
 
@@ -101,8 +101,17 @@ export function Logger() {
                       fontSize: "0.8rem",
                       marginTop: "0.3rem"
                     }}>
-                      {message.deviceId && `Group: ${message.deviceId}\n`}
-                      {message.description}
+                      {message.deviceId && `ID: ${message.deviceId}\n`}
+                     
+                    </p>
+                    <p style={{
+                      color: 'black',
+                      fontWeight: "semi-bold",
+                      fontSize: "0.8rem",
+                      marginTop: "0.3rem"
+                    }}>
+
+                       {message.description}
                     </p>
 
                   </Timeline.Body>
