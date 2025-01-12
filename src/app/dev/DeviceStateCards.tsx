@@ -77,11 +77,11 @@ const StateCard = ({
         if ( data.record_id !== prevID) {
            prevStateIDRef.current = data.record_id;
             setState(_ => data)
-            setNow(Date.now())
+           
           
         }
 
-     
+      setNow(Date.now())
 
       
     }
