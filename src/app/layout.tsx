@@ -4,6 +4,7 @@ import "./globals.css";
 import { CustomNavBar } from "./CustomNavBar";
 import { Flowbite } from "flowbite-react";
 import { customTheme } from "./constants";
+import { CustomFooter } from "./Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,10 +36,12 @@ export default function RootLayout({
          
             <CustomNavBar />
 
-          <div id="body wrapper" className="pt-20">
+          <div id="body wrapper" className="pt-20 mb-20">
             {children}
 
           </div>
+
+          {/* <CustomFooter/> */}
         </ Flowbite>
 
 

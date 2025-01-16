@@ -112,7 +112,7 @@ export const Selector = () => {
 
 
                         {
-                            devices.map(device => <Dropdown.Item onClick={() => {
+                            devices.map(device => <Dropdown.Item key={device.device_id} onClick={() => {
                                 // console.log(e.target)
                                 setSelectedDevice(device)
                             }} value={device.device_id}>{device.device_id} - {device.description}</Dropdown.Item>)

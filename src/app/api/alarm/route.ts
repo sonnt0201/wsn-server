@@ -45,7 +45,7 @@ export const POST = async (req: NextRequest) => {
 
 
           // send to tcp server -> esp32 gateway
-          var client = new net.Socket();
+          const client = new net.Socket();
           client.connect(5000, 'localhost', function () {
               console.log('Connected');
   
@@ -158,7 +158,7 @@ export const PUT = async (req: NextRequest) => {
 
 
         // send to tcp server -> esp32 gateway
-        var client = new net.Socket();
+        const client = new net.Socket();
         client.connect(5000, 'localhost', function () {
             console.log('Connected');
 
