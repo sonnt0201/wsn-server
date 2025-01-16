@@ -22,7 +22,7 @@ export function CustomNavBar() {
                         Export
                     </Navbar.Link>
                     <Navbar.Link href="/alarms">Alarms</Navbar.Link>
-                    <Navbar.Link href="/about">About</Navbar.Link>
+                    <Navbar.Link href="https://husteduvn-my.sharepoint.com/:w:/g/personal/son_nt212951_sis_hust_edu_vn/EdWprvQkKolLq02ZPraBcjQBGViFaCQvroo7t_7NZ3XXKg?e=1Zfc5Z">About</Navbar.Link>
                    
                 </Navbar.Collapse>
             </Navbar>
