@@ -18,8 +18,8 @@ export function CustomNavBar() {
                     <Navbar.Link href="/dev" active>
                         Realtime
                     </Navbar.Link>
-                    <Navbar.Link as={Link} href="#">
-                        Devices
+                    <Navbar.Link as={Link} href="/csv">
+                        Export
                     </Navbar.Link>
                     <Navbar.Link href="/alarms">Alarms</Navbar.Link>
                     <Navbar.Link href="/about">About</Navbar.Link>

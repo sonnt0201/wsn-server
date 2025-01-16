@@ -117,55 +117,46 @@ export class _RecordOrm {
      * @param options filters for query
      * @returns 
      */
-    async readRecords(options?:
-        {
-            deviceIds?: string[],
-            type?: "newest" | "oldest",
-            limit?: number,
-            beginTime?: number,
-            endTime?: number
-
-
-        }
-    ): Promise<Record[]> {
-
-       if (options?.limit && options.limit > 100) throw new Error("Limit exceeded");
-
-        // let deviceIds = options?.deviceIds
-        if (options?.deviceIds && options.deviceIds.length > 0)
-            options.deviceIds = options?.deviceIds?.map(val => (`'` + val + `'`));
-
-        const DEVICE_IDS_QUERY_CHUNK = (options?.deviceIds)?
-            `device_id IN ( 
-                ${options.deviceIds.join(",")}
-            )`
-            : `1=1`
-        // console.log("chunk: ",DEVICE_IDS_QUERY_CHUNK)
-        // query begin
-        const QUERY = `SELECT * FROM records 
-        WHERE 
-        ${DEVICE_IDS_QUERY_CHUNK}
-        ${options?.beginTime? `AND time>=${options?.beginTime}`: ''}
-       ${options?.endTime? ` AND  time<=${options?.endTime}`: ''}
-       
-        ${(options?.type == "newest")? `ORDER BY time DESC ` : ` `}
-        ${(options?.type == "oldest")? `ORDER BY time ASC `: ` `}
-        ${(options?.limit)? `LIMIT ${options.limit}`: `100`}
-        ` ; // end of query
-
-        // console.log("query: ", QUERY)
-
+    async readRecords(options?: {
+        deviceIds?: string[];
+        type?: "newest" | "oldest";
+        limit?: number;
+        beginTime?: number;
+        endTime?: number;
+    }): Promise<Record[]> {
+        if (options?.limit && options.limit > 1000) throw new Error("Limit exceeded");
+    
+        // Format deviceIds for SQL
+        const deviceIdsChunk = options?.deviceIds && options.deviceIds.length > 0
+            ? `device_id IN (${options.deviceIds.map(id => `'${id}'`).join(",")})`
+            : `1=1`;
+    
+        // Construct the query
+        const QUERY = `
+            SELECT * FROM records 
+            WHERE 
+                ${deviceIdsChunk}
+                ${options?.beginTime ? `AND time >= ${options.beginTime}` : ""}
+                ${options?.endTime ? `AND time <= ${options.endTime}` : ""}
+            ${options?.type === "newest" ? "ORDER BY time DESC" : ""}
+            ${options?.type === "oldest" ? "ORDER BY time ASC" : ""}
+            LIMIT ${options?.limit || 1000}
+        `;
+    
+        console.log("Query:", QUERY); // Debug the query if needed
+    
+        // Execute the query
         return new Promise((resolve, reject) => {
             this._db?.all(QUERY, (err, rows) => {
                 if (err) {
-                    reject(err); // Reject the promise in case of error
+                    reject(err);
                 } else {
-                    resolve(rows as Record[]); // Resolve with the rows array
+                    resolve(rows as Record[]);
                 }
             });
         });
-
     }
+    
 
 
 }
